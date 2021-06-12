@@ -22,6 +22,7 @@ class DoublyLinkedList():
     def __len__(self):
         return self.size
     def splice(self, a, b, x):
+        #print(type(a), type(b), type(x))
         # 노드 a 부터 노드 b 까지를 떼어내(cut) 노드 x 뒤에 붙여(paste) 넣는 연산
         # cut-and-paste 연산이라고 기억하자
         if a == None or b == None or x == None:
@@ -54,20 +55,17 @@ class DoublyLinkedList():
         self.splice(a, a, x.prev)
 
     def insertAfter(self, x, key): # 노드 x 뒤에 데이터가 key 인 새 노드를 생성해 삽입
-        new_node = Node(key)
-        print(new_node)
-        self.moveAfter(new_node, x)
         self.size += 1
+        self.moveAfter(Node(key), x)
 
     def insertBefore(self, x, key): # 노드 x 앞에 데이터가 key 인 새 노드를 생성해 삽입
-        new_node = Node(key)
-        self.moveBefore(new_node, x.prev)
         self.size += 1
+        self.moveBefore(Node(key), x)
 
-    def pushFront(self, key): # 데이터가 key인 새 노드를 생성해 head (dummy) 다음(front)에 삽입
+    def pushFront(self, key): # 데이터가 key 인 새 노드를 생성해 head (dummy) 다음(front)에 삽입
         self.insertAfter(self.head, key)
 
-    def pushBack(self, key): # 데이터가 key인 새 노드를 생성해 head 이전 (back)에 삽입
+    def pushBack(self, key): # 데이터가 key 인 새 노드를 생성해 head 이전 (back)에 삽입
         self.insertBefore(self.head, key)
 
     def remove(self, x): # 노드 x를 제거
@@ -78,17 +76,25 @@ class DoublyLinkedList():
         x.next.prev = x.prev
         self.size -= 1
         del x
+
     def popFront(self): # head 다음에 있는 노드의 데이터 값 리턴. 빈 리스트이면 None 리턴
         if self.isEmpty(): return None
         key = self.head.next.key
         self.remove(self.head.next)
         return key
+
     def popBack(self): # head 이전에 있는 노드의 데이터 값 리턴. 빈 리스트면 None 리턴
         if self.isEmpty(): return None
         key = self.head.prev.key
         self.remove(self.head.prev)
         return key
 
+    def show(self):
+        cur_node = self.head
+        while cur_node.next.key != 'head':
+            print(cur_node.key, end=' -> ')
+            cur_node = cur_node.next
+        print(cur_node.key)
 
 a = Node(3)
 b = Node(9)
@@ -96,16 +102,23 @@ c = Node(-1)
 d = Node(5)
 
 DLL = DoublyLinkedList()
-#print(len(DLL))
-DLL.insertAfter('head', 3)
-print(DLL)
-#DLL.pushBack(3)
-#print(DLL)
-#print(len(DLL))
-#DLL.pushFront(9)
-#print(DLL)
-#DLL.pushFront(-1)
-#print(DLL)
+DLL.show()
+DLL.pushFront('3')
+DLL.show()
+DLL.pushBack('5')
+DLL.show()
+DLL.pushFront(9)
+DLL.show()
+DLL.pushFront(-1)
+DLL.show()
+DLL.popBack()
+DLL.show()
+DLL.popFront()
+DLL.show()
+DLL.popFront()
+DLL.show()
+DLL.pushFront('1')
+DLL.show()
 #DLL.pushBack(5)
 #print(DLL)
 #print(DLL.popBack())
