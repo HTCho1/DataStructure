@@ -9,6 +9,7 @@ class Node():
     def __str__(self): # print(node)인 경우 출력할 문자열
         return str(self.key) # str((self.key, self.value))
 
+# 한방향 연결리스트 정의
 class SinglyLinkedList():
     def __init__(self):
         self.head = None   # 연결리스트의 가장 앞의 노드 (head), 초기값은 None
@@ -72,7 +73,7 @@ class SinglyLinkedList():
         # 방법 1 : head 노드부터 next 링크를 따라가면서 뒤지는 방법
         v = self.head
         while v != None:
-            if v.key == key:
+            if str(v.key) == str(key):
                 return v
             v = v.next
         return v
@@ -86,7 +87,6 @@ class SinglyLinkedList():
     '''
     def remove(self, v):
         if self.size == 0 or v == None: return None
-        print(type(self.head), type(v), type(self.head.key), type(v.key))
         if v == self.head.key: # type(v) = class '__main__.Node'
                                # type(v.key) = class 'int'
                                # type(self.head) = class '__main__.Node'
@@ -117,4 +117,7 @@ SLL.pushBack(d)
 print('SLL: ', SLL)
 SLL.remove(c)
 print('SLL: ', SLL)
-print(SLL.search(3))
+SLL.popFront()
+print('SLL: ', SLL)
+SLL.popBack()
+print('SLL: ', SLL)
